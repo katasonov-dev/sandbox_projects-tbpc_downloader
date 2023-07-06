@@ -1,16 +1,19 @@
 require 'faraday'
-require 'logger'
+require 'pry'
+require 'open-uri'
+require_relative '../../utils/app_logger'
+require_relative '../../utils/http_client'
 
 module Downloaders
   class ImageDownloader
     class << self
 
-      def download(urls: [])
+      def perform(urls: [])
         urls.each do |url|
           begin
-            response = http_client.get(url)
+            response = HttpClient.instance.get(url)
           rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
-            logger.error("An error occurred while requested url: #{url}. #{e.class}")
+            AppLogger.instance.log(message_type: :error, message: "An error occurred while requested url: #{url}. #{e.class}")
             next
           end
 
@@ -18,18 +21,12 @@ module Downloaders
             filename = File.basename(url)
             write_file_to_folder(file_data: response.body, filename: filename)
           else
-            logger.error("File with url: #{url} is not an image")
+            AppLogger.instance.log(message_type: :error, message: "File with url: #{url} is not an image")
           end
         end
-      rescue StandardError => e
-        logger.error(e)
       end
 
       private
-
-      def http_client
-        @http_client ||= Faraday.new(request: { timeout: 10 })
-      end
 
       def logger
         @logger ||= Logger.new(File.join(destination_folder, 'log.txt'))

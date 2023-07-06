@@ -1,3 +1,5 @@
+require_relative '../utils/app_logger'
+
 class Downloader
   attr_reader :downloader, :urls
 
@@ -6,7 +8,9 @@ class Downloader
     @urls = urls
   end
 
-  def download
-    downloader.download(urls: urls)
+  def perform
+    downloader.perform(urls: urls)
+  rescue StandardError => e
+    AppLogger.instance.log(message_type: :error, message: e)
   end
 end
