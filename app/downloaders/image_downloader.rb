@@ -10,7 +10,7 @@ module Downloaders
           begin
             response = http_client.get(url)
           rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
-            logger.error("An error occured while requested url: #{url}. #{e.class}")
+            logger.error("An error occurred while requested url: #{url}. #{e.class}")
             next
           end
 
