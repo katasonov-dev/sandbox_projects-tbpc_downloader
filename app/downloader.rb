@@ -1,7 +1,7 @@
 require_relative '../utils/app_logger'
 
 class Downloader
-  attr_reader :downloader, :urls
+  attr_accessor :downloader, :urls
 
   def initialize(downloader:, urls: [])
     @downloader = downloader
