@@ -1,7 +1,7 @@
 require 'faraday'
 require 'open-uri'
 
-require_relative './utils/app_logger'
+require_relative '../../utils/app_logger'
 require_relative '../../utils/http_client'
 
 module Downloaders
@@ -18,7 +18,7 @@ module Downloaders
           end
 
           if response_contents_image?(response)
-            filename = File.basename(url)
+            filename = Time.now.strftime('%s') + File.basename(url)
             write_file_to_folder(file_data: response.body, filename: filename)
           else
             AppLogger.instance.log(message_type: :error, message: "File with url: #{url} is not an image")
