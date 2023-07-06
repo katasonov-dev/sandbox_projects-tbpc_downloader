@@ -7,6 +7,6 @@ class Downloader
   end
 
   def download
-    downloader.download(urls)
+    downloader.download(urls: urls)
   end
 end
