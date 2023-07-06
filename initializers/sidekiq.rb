@@ -1,5 +1,6 @@
 require 'sidekiq'
 require 'redis'
+
 require_relative '../workers/image_downloader'
 
 Sidekiq.configure_server do |config|

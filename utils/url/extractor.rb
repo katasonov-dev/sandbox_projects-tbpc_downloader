@@ -3,7 +3,7 @@ require_relative '../../utils/app_logger'
 
 module URL
   class Extractor
-    def self.extract_urls(file_path:)
+    def self.extract_from_file(file_path:)
       unvalidated_urls = File.open(file_path, 'r') do |file|
         urls = file.read
         urls.split(/[, \n\t]+/)

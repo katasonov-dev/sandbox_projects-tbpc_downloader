@@ -17,6 +17,7 @@ class HttpClient
 
   def build_connection
     Faraday.new do |faraday|
+      faraday.options[:timeout] = 5
       faraday.adapter Faraday.default_adapter
     end
   end

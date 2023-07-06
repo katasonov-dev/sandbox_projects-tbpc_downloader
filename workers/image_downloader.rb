@@ -1,4 +1,5 @@
 require 'sidekiq'
+
 require_relative '../app/downloader'
 require_relative '../app/downloaders/image_downloader'
 

@@ -1,7 +1,7 @@
 require 'faraday'
-require 'pry'
 require 'open-uri'
-require_relative '../../utils/app_logger'
+
+require_relative './utils/app_logger'
 require_relative '../../utils/http_client'
 
 module Downloaders
