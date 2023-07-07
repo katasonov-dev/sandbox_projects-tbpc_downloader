@@ -12,5 +12,7 @@ gem 'uri'
 gem 'faraday'
 gem 'logger'
 gem 'rake'
-gem 'pry'
 gem 'foreman'
+
+gem 'pry'
+gem 'rspec'
