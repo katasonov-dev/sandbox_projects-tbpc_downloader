@@ -26,10 +26,6 @@ module Downloaders
 
       private
 
-      def logger
-        @logger ||= Logger.new(File.join(destination_folder, 'log.txt'))
-      end
-
       def destination_folder
         folder_path = "downloads/#{Date.today.to_s}/images"
         FileUtils.mkdir_p(folder_path) unless File.directory?(folder_path)
