@@ -66,6 +66,7 @@ GEM
     uri (0.12.2)
 
 PLATFORMS
+  x86_64-darwin-20
   x86_64-darwin-22
 
 DEPENDENCIES
