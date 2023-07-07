@@ -7,7 +7,6 @@ require_relative '../../utils/http_client'
 module Downloaders
   class ImageDownloader
     class << self
-
       def perform(urls: [])
         urls.each do |url|
           begin
@@ -16,7 +15,6 @@ module Downloaders
             AppLogger.instance.log(message_type: :error, message: "An error occurred while requested url: #{url}. #{e.class}")
             next
           end
-
           if response_contents_image?(response)
             filename = Time.now.strftime('%s') + File.basename(url)
             write_file_to_folder(file_data: response.body, filename: filename)
@@ -34,7 +32,6 @@ module Downloaders
 
       def destination_folder
         folder_path = "downloads/#{Date.today.to_s}/images"
-
         FileUtils.mkdir_p(folder_path) unless File.directory?(folder_path)
         folder_path
       end

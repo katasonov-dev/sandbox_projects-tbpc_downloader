@@ -11,9 +11,15 @@ module URL
 
       validated_urls = unvalidated_urls.map { |url| url if URL::Validator.valid?(url: url) }
 
-      AppLogger.instance.log(message_type: :info, message: "File doesn't contain valid urls or filled out incorrectly") if validated_urls.empty?
+      if validated_urls.empty?
+        AppLogger.instance.log(
+          message_type: :info,
+          message: "File doesn't contain valid urls or filled out incorrectly"
+        )
+        return []
+      end
 
-      validated_urls.uniq
+      validated_urls.uniq.compact
     end
   end
 end

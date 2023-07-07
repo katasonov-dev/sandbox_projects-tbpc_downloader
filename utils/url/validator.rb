@@ -1,5 +1,4 @@
 require 'uri'
-require 'pry'
 require_relative '../../utils/app_logger'
 
 module URL
