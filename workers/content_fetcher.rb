@@ -1,5 +1,4 @@
 require 'sidekiq'
-require 'pry'
 
 require_relative '../utils/url/extractor'
 require_relative '../app/downloader'
