@@ -1,3 +1,5 @@
+![workflow](https://github.com/katasonov-dev/tbpc_downloader/actions/workflows/main.yml/badge.svg)
+
 # tbpc_downloader a.k.a “The Big Picture Corp" downloader
 
 Simple downloader of images (and potentially not only images) operated by `Rake`
