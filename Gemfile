@@ -13,6 +13,7 @@ gem 'faraday'
 gem 'logger'
 gem 'rake'
 gem 'foreman'
+gem 'mime-types'
 
 gem 'pry'
 gem 'rspec'

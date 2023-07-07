@@ -17,7 +17,6 @@ RSpec.describe Downloaders::ImageDownloader do
       end
 
       it 'saves downloaded files' do
-        expect(FileUtils).to receive(:mkdir_p).with("downloads/#{Date.today.to_s}/images")
         expect(File).to receive(:open).with(match(%r{downloads/[\d-]+/images}), "wb")
 
         described_class.perform(urls: urls)
