@@ -10,14 +10,15 @@ RSpec.describe Downloaders::ImageDownloader do
     before { allow(HttpClient).to receive(:instance).and_return(http_client) }
 
     context 'downloads and saves the images from the given URLs' do
+      let(:dummy_response) { double('response', body: 'Dummy Image Data', headers: { 'Content-Type' => 'image/jpeg' }) }
+
       before do
-        allow(http_client).to receive(:get).and_return(double(headers: { 'Content-Type' => 'image/jpeg' }, body: 'image_data'))
-        allow(FileUtils).to receive(:mkdir_p)
-        allow(File).to receive(:open)
+        allow(http_client).to receive(:get).and_return(dummy_response)
+        allow(described_class).to receive(:write_file_to_folder)
       end
 
       it 'saves downloaded files' do
-        expect(File).to receive(:open).with(match(%r{downloads/[\d-]+/images}), "wb")
+        expect(described_class).to receive(:write_file_to_folder).with(file_data: dummy_response.body, filename: anything)
 
         described_class.perform(urls: urls)
       end
@@ -39,8 +40,10 @@ RSpec.describe Downloaders::ImageDownloader do
       end
 
       context 'logs an error for non-image URLs' do
+        let(:dummy_response) { double('response', headers: { 'Content-Type' => 'text/html' }, body: 'html_data') }
+
         before do
-          allow(http_client).to receive(:get).and_return(double(headers: { 'Content-Type' => 'text/html' }, body: 'html_data'))
+          allow(http_client).to receive(:get).and_return(dummy_response)
           allow(logger).to receive(:log)
           described_class.perform(urls: urls)
         end
