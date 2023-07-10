@@ -10,14 +10,16 @@ RSpec.describe FileHandler do
   describe '#destination_folder' do
     let(:default_folder_path) { FileHandler::DEFAULT_DOWNLOADS_FOLDER }
     let(:expected_folder_path) { "#{default_folder_path}/#{date_today_string}" }
-    let(:folder_path) { dummy_object.destination_folder(create_if_absent: false) }
+    let(:folder_path) { dummy_object.destination_folder(create_if_absent: true) }
+
+    before { allow(FileUtils).to receive(:mkdir_p) }
 
     it 'returns the correct folder path' do
       expect(dummy_object.destination_folder).to eq(expected_folder_path)
     end
 
     it 'returns the default folder path when create_if_absent is false' do
-      expect(folder_path).to eq(default_folder_path)
+      expect(dummy_object.destination_folder(create_if_absent: false)).to eq(default_folder_path)
     end
   end
 
@@ -49,6 +51,8 @@ RSpec.describe FileHandler do
     let(:file_data) { 'This is some file data' }
     let(:filename) { 'test.txt' }
     let(:folder_path) { "downloads/#{date_today_string}" }
+
+    before { allow(FileUtils).to receive(:mkdir_p) }
 
     it 'writes the file data to the correct folder with the specified filename' do
       expect(File).to receive(:open).with("#{folder_path}/#{filename}", 'wb').and_yield(double('file').as_null_object)

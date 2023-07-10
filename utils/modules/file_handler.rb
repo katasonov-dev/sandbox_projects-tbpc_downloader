@@ -6,10 +6,12 @@ module FileHandler
   def destination_folder(create_if_absent: true)
     folder_path = "downloads/#{Date.today.to_s}"
 
-    if create_if_absent
-      FileUtils.mkdir_p(folder_path) unless File.directory?(folder_path)
-    else
-      folder_path = DEFAULT_DOWNLOADS_FOLDER
+    unless File.directory?(folder_path)
+      if create_if_absent
+        FileUtils.mkdir_p(folder_path)
+      else
+        folder_path = DEFAULT_DOWNLOADS_FOLDER
+      end
     end
 
     folder_path
