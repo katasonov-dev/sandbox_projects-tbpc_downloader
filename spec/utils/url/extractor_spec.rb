@@ -4,6 +4,9 @@ RSpec.describe URL::Validator do
   describe '.valid?' do
     let(:valid_url) { 'https://example1.com' }
     let(:invalid_url) { 'im_not_@_url' }
+    let(:logger) { AppLogger.instance }
+
+    before { allow(logger).to receive(:log) }
 
     context 'with valid url' do
       it 'is true' do
@@ -18,8 +21,6 @@ RSpec.describe URL::Validator do
     end
 
     context 'with error' do
-      let(:logger) { AppLogger.instance }
-
       before do
         allow(logger).to receive(:log)
         described_class.valid?(url: nil)

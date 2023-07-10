@@ -5,8 +5,9 @@ RSpec.describe URL::Extractor do
     let(:valid_urls) { %w(https://example1.com http://example2.com https://example3.com http://example4.com) }
     let(:invalid_urls) { %w(im_not_@_url ?and_me_too!) }
     let(:file_path) { File.join(File.dirname(__FILE__), '../../support/valid_image_urls.txt') }
+    let(:logger) { AppLogger.instance }
 
-    before { allow(AppLogger.instance).to receive(:log) }
+    before { allow(logger).to receive(:log) }
 
     context 'with valid urls' do
       it 'returns valid urls' do
